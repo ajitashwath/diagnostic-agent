@@ -1,0 +1,47 @@
+system_analysis_task:
+  description: >
+    1. Thoroughly analyze the user's problem description: "{problem_description}".
+    2. Formulate a hypothesis and create a step-by-step diagnostic plan.
+    3. For each step in your plan, determine the precise, safe, read-only Windows command
+       (e.g., systeminfo, tasklist, wmic, sfc /verifyonly, chkdsk) needed to gather information.
+    4. Execute each diagnostic command using the System Diagnostic Command Executor tool.
+    5. Analyze the collective output from all commands to identify the root cause of the issue.
+    6. Once you have identified the problem, get available safe fix commands by running the special command "get_fix_commands".
+    7. Based on your analysis and the available fix commands, create a Windows Batch Script (.bat) that will safely resolve the identified issues.
+    8. The batch script MUST include:
+       - Echo statements explaining each step
+       - Pause commands for user confirmation where needed
+       - Error checking where possible
+       - Safe, tested commands only
+    9. Present your findings and ask for user permission before providing the batch script.
+    10. Format your final output with the diagnosis, then the batch script enclosed between '--- BATCH SCRIPT START ---' and '--- BATCH SCRIPT END ---'.
+  expected_output: >
+    A comprehensive final report for the user, containing:
+    - **Problem Summary:** A brief restatement of the user's issue.
+    - **Investigation & Analysis:** Your interpretation of the data gathered from the diagnostic commands.
+    - **Final Diagnosis:** A clear conclusion about the root cause.
+    - **Proposed Solution:** A description of what the batch script will do.
+    - **Batch Script:** A Windows batch file (.bat) that will resolve the issue, enclosed in the specified markers.
+    The script should be safe, well-commented, and include user confirmations for critical operations.
+
+command_execution_task:
+  description: >
+    Execute the system command requested by the Lead Diagnostician Agent.
+    Capture the full output (both stdout and stderr) and return it directly
+    without any modification or analysis. The command to execute will be
+    delegated to you.
+  expected_output: >
+    The raw, complete string output from the executed system command. This output
+    will be used by the Lead Diagnostician Agent for their analysis.
+
+solution_scripting_task:
+  description: >
+    Based on the final diagnosis from the Lead System Diagnostician,
+    create a Windows PowerShell (.ps1) script that will resolve the identified issues.
+    The script MUST be simple, include comments explaining each command, and be as safe as possible.
+    Frame the final output with clear markers: a diagnosis section, and then the script
+    itself enclosed between '--- SCRIPT START ---' and '--- SCRIPT END ---'.
+  expected_output: >
+    A final report containing a clear diagnosis of the problem, followed by
+    the PowerShell script content to fix the issue. The script must be enclosed
+    in the specified markers.
